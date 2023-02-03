@@ -1,0 +1,15 @@
+{
+  "supportFile": "cypress/support/index.js",
+  "baseUrl": "http://localhost:4200",
+  "ignoreTestFiles": "**/examples/*",
+  "reporter": "cypress-multi-reporters",
+  "video": false,
+  "reporterOptions": {
+    "configFile": "reporter-config.json"
+  },
+  "env": {
+    "username": "artem.bondar16@gmail.com",
+    "password": "CypressTest1",
+    "apiUrl": "https://conduit.productionready.io/"
+  }
+}

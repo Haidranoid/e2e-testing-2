@@ -1,0 +1,110 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 0,
+    "pending": 0,
+    "failures": 1,
+    "start": "2023-02-03T03:22:50.284Z",
+    "end": "2023-02-03T03:22:55.558Z",
+    "duration": 5274,
+    "testsRegistered": 1,
+    "passPercent": 0,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "edd4fd01-c9c9-4a24-b9e7-c444869dbac9",
+      "title": "",
+      "fullFile": "cypress/integration/firstTest.spec.js",
+      "file": "cypress/integration/firstTest.spec.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "cd8c6575-2764-43bd-821a-b99c3eb396c0",
+          "title": "Test with backend",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "should delete a new article in a global feed",
+              "fullTitle": "Test with backend should delete a new article in a global feed",
+              "timedOut": null,
+              "duration": 5254,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "const bodyRequest = {\n  \"article\": {\n    \"taglist\": [],\n    \"title\": \"Request from API 2-4\",\n    \"description\": \"API testing is easy\",\n    \"body\": \"Angular is cool\"\n  }\n};\ncy.get('@token').then(token => {\n  cy.request({\n    url: Cypress.env('apiUrl') + 'api/articles/',\n    headers: {\n      \"Authorization\": `Token ${token}`,\n      \"Content-type\": \"application/json\",\n      \"Accept\": \"*/*\"\n    },\n    method: \"POST\",\n    body: bodyRequest\n  }).then(response => {\n    expect(response.status).to.equal(200);\n  });\n  cy.contains('Global Feed').click();\n  cy.get('.article-preview').first().click();\n  cy.get('.article-actions').contains('Delete Article').click();\n  cy.request({\n    url: Cypress.env('apiUrl') + 'api/articles?limit=10&offset=0',\n    headers: {\n      \"Authorization\": `Token ${token}`\n    },\n    method: \"GET\"\n  }).its('body').then(body => {\n    //console.log(body)\n    expect(body.articles[0].title).not.to.equal(bodyRequest.article.title);\n  });\n});",
+              "err": {
+                "message": "AssertionError: expected 'Request from API 2-4' to not equal 'Request from API 2-4'",
+                "estack": "AssertionError: expected 'Request from API 2-4' to not equal 'Request from API 2-4'\n    at Context.eval (http://localhost:4200/__cypress/tests?p=cypress\\integration\\firstTest.spec.js:172:22)",
+                "diff": ""
+              },
+              "uuid": "b4b87c8b-6122-4fda-a754-1840941f4ac9",
+              "parentUUID": "cd8c6575-2764-43bd-821a-b99c3eb396c0",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [],
+          "failures": [
+            "b4b87c8b-6122-4fda-a754-1840941f4ac9"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 5254,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/results/mochawesome",
+        "overwrite": false,
+        "html": false,
+        "json": true
+      },
+      "version": "6.2.0"
+    }
+  }
+}
